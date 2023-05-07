@@ -1,25 +1,37 @@
-import logo from './logo.svg';
+//the main component that return app the index.
+//importation of css file and the profile component
 import './App.css';
+import Profile from './profile/Profile';
+import Button from 'react-bootstrap/Button'
+import { useState } from 'react';
+import Loader from './profile/components/Loader';
 
-function App() {
+
+//the arrow function
+function App(props) {
+  const [show,setShow]=useState(false)
+  const [isLoad,setIsLoad]=useState(true)
+  const interval=setInterval(()=>{setIsLoad(!isLoad);},7000)
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <main className="App-header"> 
+      
+      <div className="theLeft">
+
+     {(interval<2)? isLoad && <Loader></Loader>:<Button onClick={()=>setShow(!show)} className="submitname" variant="primary">{!show?"Show":"Hide"}</Button>}
+     
+</div>
+      {show && <div className="theCenter">
+      <Profile></Profile>
+      
+      </div>
+  }
+      </main>
     </div>
   );
 }
-
+//exportation of the app
 export default App;
